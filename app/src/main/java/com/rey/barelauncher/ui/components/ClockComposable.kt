@@ -6,7 +6,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.mutableLongStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
@@ -20,17 +20,17 @@ import kotlin.math.sin
 
 @Composable
 fun AnalogClock(modifier: Modifier = Modifier) {
-    val time = remember { mutableStateOf(System.currentTimeMillis()) }
+    val time = remember { mutableLongStateOf(System.currentTimeMillis()) }
 
     LaunchedEffect(Unit) {
         while (true) {
-            time.value = System.currentTimeMillis()
+            time.longValue = System.currentTimeMillis()
             delay(1000L)
         }
     }
 
     val calendar = Calendar.getInstance().apply {
-        timeInMillis = time.value
+        timeInMillis = time.longValue
     }
 
     val hours = calendar.get(Calendar.HOUR)

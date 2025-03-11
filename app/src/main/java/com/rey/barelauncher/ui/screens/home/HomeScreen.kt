@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.material3.Divider
 import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Text
@@ -39,10 +40,10 @@ fun MainScreen() {
     val scope = rememberCoroutineScope()
 
     Box(modifier = Modifier.fillMaxSize()) {
-        // Clock screen as background
+        // Clock screen as background - this should always be visible
         ClockScreen()
 
-        // App drawer sheet
+        // App drawer sheet - this should only appear when swiped up
         BottomDrawerSheet(
             drawerState = drawerState,
             content = {
@@ -76,8 +77,6 @@ fun MainScreen() {
     }
 }
 
-
-
 @Composable
 fun ClockScreen(modifier: Modifier = Modifier) {
     val time = remember { mutableStateOf("") }
@@ -85,9 +84,9 @@ fun ClockScreen(modifier: Modifier = Modifier) {
     // Update time every second
     LaunchedEffect(Unit) {
         while (true) {
-            val currentTime = Calendar.getInstance().time
-            time.value = SimpleDateFormat("HH:mm", Locale.getDefault()).format(currentTime)
-            delay(1000L)
+            val cal = Calendar.getInstance()
+            time.value = SimpleDateFormat("HH:mm", Locale.getDefault()).format(cal.time)
+            delay(1000)
         }
     }
 

@@ -1,7 +1,7 @@
 package com.rey.barelauncher.ui.components
 
 import android.annotation.SuppressLint
-import android.health.connect.datatypes.AppInfo
+import com.rey.barelauncher.data.model.AppInfo
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -24,11 +24,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.vector.rememberVectorPainter
+import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-
+import androidx.core.graphics.drawable.toBitmap
 
 @SuppressLint("NewApi")
 @Composable
@@ -61,22 +61,20 @@ fun AppItem(
                     contentAlignment = Alignment.Center
                 ) {
                     Image(
-                        painter = rememberVectorPainter(data = app.icon),
+                        bitmap = app.icon.toBitmap().asImageBitmap(),
                         contentDescription = app.name,
                         modifier = Modifier.size(40.dp)
                     )
                 }
 
-                app.name?.let {
-                    Text(
-                        text = it,
-                        style = MaterialTheme.typography.bodySmall,
-                        maxLines = 1,
-                        overflow = TextOverflow.Ellipsis,
-                        textAlign = TextAlign.Center,
-                        modifier = Modifier.padding(top = 4.dp)
-                    )
-                }
+                Text(
+                    text = app.name,
+                    style = MaterialTheme.typography.bodySmall,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier.padding(top = 4.dp)
+                )
 
                 IconButton(
                     onClick = onFavoriteToggle,
@@ -95,20 +93,18 @@ fun AppItem(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Image(
-                    painter = rememberDrawablePainter(drawable = app.icon),
+                    bitmap = app.icon.toBitmap().asImageBitmap(),
                     contentDescription = app.name,
                     modifier = Modifier.size(40.dp)
                 )
 
-                app.name?.let {
-                    Text(
-                        text = it,
-                        style = MaterialTheme.typography.bodyLarge,
-                        modifier = Modifier
-                            .weight(1f)
-                            .padding(horizontal = 16.dp)
-                    )
-                }
+                Text(
+                    text = app.name,
+                    style = MaterialTheme.typography.bodyLarge,
+                    modifier = Modifier
+                        .weight(1f)
+                        .padding(horizontal = 16.dp)
+                )
 
                 IconButton(
                     onClick = onFavoriteToggle,

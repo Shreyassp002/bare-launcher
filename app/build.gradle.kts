@@ -7,11 +7,11 @@ plugins {
 
 android {
     namespace = "com.rey.barelauncher"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.rey.barelauncher"
-        minSdk = 24
+        minSdk = 25
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"

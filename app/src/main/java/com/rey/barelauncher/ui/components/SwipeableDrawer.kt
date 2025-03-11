@@ -18,19 +18,19 @@ import androidx.wear.compose.material.FractionalThreshold
 import androidx.wear.compose.material.SwipeableState
 import androidx.wear.compose.material.swipeable
 import kotlin.math.roundToInt
-
+import androidx.compose.material3.DrawerValue
 
 @OptIn(ExperimentalWearMaterialApi::class)
 @Composable
 fun BottomDrawerSheet(
-    drawerState: SwipeableState<androidx.compose.material3.DrawerValue>,
+    drawerState: SwipeableState<DrawerValue>,
     content: @Composable () -> Unit
 ) {
     val anchors = mapOf(
-        0f to DrawerValue.Closed,
+        0f to DrawerValue.Open,
         with(LocalDensity.current) {
             LocalConfiguration.current.screenHeightDp.dp.toPx()
-        } to DrawerValue.Open
+        } to DrawerValue.Closed
     )
 
     Box(
@@ -62,7 +62,3 @@ fun BottomDrawerSheet(
     }
 }
 
-enum class DrawerValue {
-    Open,
-    Closed
-}

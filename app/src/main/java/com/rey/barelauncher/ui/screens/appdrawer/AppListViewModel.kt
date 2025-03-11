@@ -3,9 +3,9 @@ package com.rey.barelauncher.ui.screens.appdrawer
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
-import android.health.connect.datatypes.AppInfo
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.rey.barelauncher.data.model.AppInfo
 import com.rey.barelauncher.data.repository.AppRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

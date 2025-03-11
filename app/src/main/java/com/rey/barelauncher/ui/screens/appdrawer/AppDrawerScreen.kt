@@ -93,7 +93,7 @@ fun AppDrawerContent(onCloseDrawer: () -> Unit) {
                 }
             }
 
-            Divider(modifier = Modifier.padding(vertical = 8.dp))
+            HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp))
         }
 
         // All apps

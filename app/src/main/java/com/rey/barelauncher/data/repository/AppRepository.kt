@@ -1,15 +1,16 @@
 package com.rey.barelauncher.data.repository
 
 import android.annotation.SuppressLint
-import android.health.connect.datatypes.AppInfo
+import com.rey.barelauncher.MyApplication
 import com.rey.barelauncher.data.database.AppDatabase
 import com.rey.barelauncher.data.database.FavoriteAppDao
+import com.rey.barelauncher.data.model.AppInfo
 import com.rey.barelauncher.data.model.FavoriteAppEntity
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
 class AppRepository(private val favoriteAppDao: FavoriteAppDao) {
-    private val packageManager = AppCompatApplication.instance.packageManager
+    private val packageManager = MyApplication.instance.packageManager
 
     fun getAllFavorites(): Flow<List<AppInfo>> {
         return favoriteAppDao.getAllFavorites().map { entities ->
@@ -36,12 +37,10 @@ class AppRepository(private val favoriteAppDao: FavoriteAppDao) {
 
     @SuppressLint("NewApi")
     suspend fun addFavorite(app: AppInfo) {
-        app.name?.let {
-            FavoriteAppEntity(
-                packageName = app.packageName,
-                appName = it
-            )
-        }?.let {
+        FavoriteAppEntity(
+            packageName = app.packageName,
+            appName = app.name
+        ).let {
             favoriteAppDao.addFavorite(
                 it
             )
@@ -62,7 +61,7 @@ class AppRepository(private val favoriteAppDao: FavoriteAppDao) {
 
         fun getInstance(): AppRepository {
             return INSTANCE ?: synchronized(this) {
-                val database = AppDatabase.getDatabase(AppCompatApplication.instance)
+                val database = AppDatabase.getDatabase(MyApplication.instance)
                 val instance = AppRepository(database.favoriteAppDao())
                 INSTANCE = instance
                 instance
