@@ -40,10 +40,10 @@ fun MainScreen() {
     val scope = rememberCoroutineScope()
 
     Box(modifier = Modifier.fillMaxSize()) {
-        // Clock screen as background - this should always be visible
+        // Clock screen background - always visible
         ClockScreen()
 
-        // App drawer sheet - this should only appear when swiped up
+        // App drawer sheet
         BottomDrawerSheet(
             drawerState = drawerState,
             content = {

@@ -83,7 +83,7 @@ fun AppItem(
                     Icon(
                         imageVector = if (isFavorite) Icons.Filled.Favorite else Icons.Outlined.FavoriteBorder,
                         contentDescription = if (isFavorite) "Remove from favorites" else "Add to favorites",
-                        tint = if (isFavorite) Color.Red else MaterialTheme.colorScheme.onSurface
+                        tint = if (isFavorite) Color.White else MaterialTheme.colorScheme.onSurface
                     )
                 }
             }
@@ -113,7 +113,7 @@ fun AppItem(
                     Icon(
                         imageVector = if (isFavorite) Icons.Filled.Favorite else Icons.Outlined.FavoriteBorder,
                         contentDescription = if (isFavorite) "Remove from favorites" else "Add to favorites",
-                        tint = if (isFavorite) Color.Red else MaterialTheme.colorScheme.onSurface
+                        tint = if (isFavorite) Color.White else MaterialTheme.colorScheme.onSurface
                     )
                 }
             }
