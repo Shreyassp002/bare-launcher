@@ -1,6 +1,5 @@
 package com.rey.barelauncher.ui.screens.appdrawer
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import androidx.lifecycle.ViewModel
@@ -29,7 +28,6 @@ class AppListViewModel : ViewModel() {
         }
     }
 
-    @SuppressLint("NewApi", "QueryPermissionsNeeded")
     fun loadInstalledApps(context: Context) {
         viewModelScope.launch {
             val packageManager = context.packageManager
@@ -50,7 +48,6 @@ class AppListViewModel : ViewModel() {
         }
     }
 
-    @SuppressLint("NewApi")
     fun toggleFavorite(app: AppInfo) {
         viewModelScope.launch {
             val isFavorite = _favoriteApps.value.any { it.packageName == app.packageName }
