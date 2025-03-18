@@ -26,7 +26,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.rey.barelauncher.ui.components.AppItem
-import com.rey.barelauncher.utils.launchApp
+import com.rey.barelauncher.utils.AppUtils.launchApp
 
 @SuppressLint("NewApi")
 @Composable
@@ -45,20 +45,6 @@ fun AppDrawerContent(onCloseDrawer: () -> Unit) {
             .fillMaxSize()
             .padding(16.dp)
     ) {
-        // Handle at the top of drawer
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(vertical = 8.dp),
-            contentAlignment = Alignment.Center
-        ) {
-            HorizontalDivider(
-                modifier = Modifier.width(40.dp),
-                thickness = 4.dp,
-                color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.3f)
-            )
-        }
-
         Text(
             text = "Apps",
             style = MaterialTheme.typography.headlineMedium,

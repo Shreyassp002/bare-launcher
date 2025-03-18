@@ -3,9 +3,15 @@ package com.rey.barelauncher.ui.components
 import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.Orientation
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Divider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -19,6 +25,9 @@ import androidx.wear.compose.material.SwipeableState
 import androidx.wear.compose.material.swipeable
 import kotlin.math.roundToInt
 import androidx.compose.material3.DrawerValue
+import androidx.compose.material3.HorizontalDivider
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.graphics.Color
 
 @OptIn(ExperimentalWearMaterialApi::class)
 @Composable
@@ -26,11 +35,14 @@ fun BottomDrawerSheet(
     drawerState: SwipeableState<DrawerValue>,
     content: @Composable () -> Unit
 ) {
+    val screenHeight = with(LocalDensity.current) {
+        LocalConfiguration.current.screenHeightDp.dp.toPx()
+    }
+
+    // Ensure the drawer starts fully off-screen when closed
     val anchors = mapOf(
-        0f to DrawerValue.Open,
-        with(LocalDensity.current) {
-            LocalConfiguration.current.screenHeightDp.dp.toPx()
-        } to DrawerValue.Closed
+        (screenHeight + 100f) to DrawerValue.Closed,  // Fully off-screen
+        0f to DrawerValue.Open                       // Fully visible on swipe up
     )
 
     Box(
@@ -43,14 +55,12 @@ fun BottomDrawerSheet(
                 orientation = Orientation.Vertical
             )
     ) {
+        // Drawer content positioned off-screen when closed
         Box(
             modifier = Modifier
                 .fillMaxSize()
                 .offset {
-                    IntOffset(
-                        0,
-                        drawerState.offset.value.roundToInt()
-                    )
+                    IntOffset(0, drawerState.offset.value.roundToInt())
                 }
                 .background(
                     color = MaterialTheme.colorScheme.surface,
@@ -59,6 +69,23 @@ fun BottomDrawerSheet(
         ) {
             content()
         }
+
+        // Swipe indicator should only appear when swiping starts (optional)
+        if (drawerState.offset.value < screenHeight) {
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(40.dp)
+                    .align(Alignment.BottomCenter)
+                    .padding(bottom = 16.dp),
+                contentAlignment = Alignment.Center
+            ) {
+                HorizontalDivider(
+                    modifier = Modifier.width(40.dp),
+                    thickness = 4.dp,
+                    color = Color.White.copy(alpha = 0.6f)
+                )
+            }
+        }
     }
 }
-
